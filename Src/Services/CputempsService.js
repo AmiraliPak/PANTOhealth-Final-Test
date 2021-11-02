@@ -23,6 +23,17 @@ class CpuTempsService {
         await this.writeApi.flush();
     }
 
+    query(fluxQuery, cb) {
+        const items = [];
+        this.queryApi.queryRows(fluxQuery, {
+            next(row, tableMeta) {
+                const obj = tableMeta.toObject(row);
+                items.push(obj);
+            },
+            error(error) { throw error; },
+            complete() { cb(items); }
+        });
+    }
 }
 
 module.exports = CpuTempsService;
