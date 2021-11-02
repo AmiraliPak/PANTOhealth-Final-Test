@@ -1,0 +1,27 @@
+{
+  "name": "pantohealth-final-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node -r dotenv/config index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmiraliPak/PANTOhealth-Final-Test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AmiraliPak/PANTOhealth-Final-Test/issues"
+  },
+  "homepage": "https://github.com/AmiraliPak/PANTOhealth-Final-Test#readme",
+  "dependencies": {
+    "@influxdata/influxdb-client": "^1.20.0",
+    "axios": "^0.24.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.12",
+    "systeminformation": "^5.9.9"
+  }
+}
