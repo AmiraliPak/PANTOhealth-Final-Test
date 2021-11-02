@@ -1,5 +1,6 @@
 const express = require("express");
 const mongodbConnect = require("./mongodb").connect;
+const influxdbConnect = require("./influxdb").connect;
 const routesConnect = require("./routes");
 
 
@@ -8,6 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 routesConnect(app);
 mongodbConnect();
+influxdbConnect();
 
 app.use((err, req, res, next) => {
     if (!err.status) err.status = 503;
