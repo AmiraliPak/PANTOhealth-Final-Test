@@ -3,6 +3,7 @@ const mongodbConnect = require("./mongodb").connect;
 const influxdbConnect = require("./influxdb").connect;
 const routesConnect = require("./routes");
 const cpuTempTimed = require("../Src/Scripts/CpuTempTimed");
+const avgCpuTempTimed = require("../Src/Scripts/AvgCpuTempTimed");
 
 
 const app = express();
@@ -13,6 +14,7 @@ mongodbConnect();
 influxdbConnect();
 
 cpuTempTimed();
+avgCpuTempTimed();
 
 app.use((err, req, res, next) => {
     if (!err.status) err.status = 503;
