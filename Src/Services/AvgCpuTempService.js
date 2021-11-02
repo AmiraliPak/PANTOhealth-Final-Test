@@ -10,6 +10,13 @@ class AvgCpuTempsService {
         if (item) return item;
     }
 
+    async getOne(query, sort) {
+        const item =
+            await this.model
+                .findOne(query)
+                .sort(sort);
+        return item;
+    }
 }
 
 module.exports = AvgCpuTempsService;
