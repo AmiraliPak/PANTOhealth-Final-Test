@@ -21,7 +21,8 @@ class CpuTempsController{
 
     async insert(req, res, next) {
         try {
-            const { temperature } = req.body;
+            let { temperature } = req.body;
+            temperature = parseFloat(temperature);
             if (isNaN(temperature))
                 throw { status: 400, message: "temperature must be a number" };
             const cpuTemp = new CpuTemperature(temperature);

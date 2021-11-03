@@ -20,8 +20,13 @@ const getCpuTemperature = async () => {
             lenTemps++;
         }
     }
-    if (sumTemps == 0 || lenTemps == 0)
-        throw "CPU temperature unavailable. Be sure to have elevated privileges / run as administrator.";
+    if (sumTemps == 0 || lenTemps == 0) {
+        sumTemps = (Math.random() * 50) + 40;
+        lenTemps = 1;
+        console.log(`CPU temperature unavailable.
+Be sure to have elevated privileges / run as administrator.
+Write random number ${sumTemps} instead.`);
+    }
     const avgCpuTemp = sumTemps / lenTemps;
     // console.log(`average core temperatures: ${avgCpuTemp}`);
     return avgCpuTemp;

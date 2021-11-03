@@ -1,7 +1,7 @@
 const AvgCpuTempModel = require("../Models/AvgCpuTempModel");
 const avgCpuTempService = new (require("../Services/AvgCpuTempService"))(AvgCpuTempModel);
 const CpuTempModel = require("../Models/CpuTempModel");
-const cpuTempService = new (require("../Services/CpuTempsService"))();
+const cpuTempService = new (require("../Services/CputempsService"))();
 
 
 const TIME_INTERVAL = '5m';
