@@ -1,0 +1,60 @@
+version: "3.6"
+
+services: 
+
+    app:
+        build:
+            context: .
+        env_file: .env
+        environment:
+            - MONGO_URL=mongodb://mongodb:27017/test
+            - INFLUX_URL=http://influxdb:8086
+        ports:
+            - "5000:5000"
+        depends_on:
+            - mongodb
+            - influxdb
+        volumes:
+            - ./:/app
+            - ./node_modules:/app/node_modules
+        restart: unless-stopped
+
+    mongodb:
+        image : mongo:focal
+        container_name: mongodb
+        ports:
+            - "27017:27017"
+        volumes:
+            - /home/mongodb:/data/db
+        restart: unless-stopped
+        
+    influxdb:
+        image: influxdb:latest
+        container_name: influxdb
+        ports:
+            - "8086:8086"
+        volumes:
+            - /home/influxdb:/var/lib/influxdb2:rw
+        restart: unless-stopped
+
+    influxdb_cli:
+        links:
+            - influxdb
+        image: influxdb:latest
+        volumes:
+            - /Users/anaisdotis-georgiou/temp/influxdb2:/var/lib/influxdb2:rw
+            - ./ssl/influxdb-selfsigned.crt:/etc/ssl/influxdb-selfsigned.crt:rw
+            - ./ssl/influxdb-selfsigned.key:/etc/ssl/influxdb-selfsigned.key:rw
+        environment: 
+            - DOCKER_INFLUXDB_INIT_MODE=setup
+            - DOCKER_INFLUXDB_INIT_USERNAME=test
+            - DOCKER_INFLUXDB_INIT_PASSWORD=testtest
+            - DOCKER_INFLUXDB_INIT_ORG=test
+            - DOCKER_INFLUXDB_INIT_BUCKET=test
+            - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=joL4kbEiQZoopluQAjB0nhOL9AEnFnzl19g4dcKDblUD-T6magJgc6l591jIDmMhhQTSoQEwHgnbHw80nij8Og==
+            - INFLUXD_TLS_CERT=/etc/ssl/influxdb-selfsigned.crt
+            - INFLUXD_TLS_KEY=/etc/ssl/influxdb-selfsigned.key
+        entrypoint: ["./entrypoint.sh"]
+        restart: on-failure:10
+        depends_on:
+            - influxdb
